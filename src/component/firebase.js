@@ -12,56 +12,57 @@ const config = {
     appId: "1:27871822406:web:efc12eac4717793ddc0047",
     measurementId: "G-L4SLH3YL1H"
   }
-  
-  class Firebase{
-      constructor(){
-        app.initializeApp(config)
-        this.auth=app.auth()
-        this.db=app.firestore()
-      }
+  app.initializeApp(config)
+		export const auth = app.auth()
+		export const db = app.firestore()
+  class Firebase {
+	/*constructor() {
+		app.initializeApp(config)
+		this.auth = app.auth()
+		this.db = app.firestore()
+	}
+    */
+	login(email, password) {
+		return auth.signInWithEmailAndPassword(email, password)
+	}
 
-      login(email,password){
-          return this.auth.signInWithEmailAndPassword(email,password)
-      }
+	logout() {
+		return auth.signOut()
+	}
 
-      logout(){
-          return this.auth.signOut()
-      }
+	async register(name, email, password) {
+		await auth.createUserWithEmailAndPassword(email, password)
+		return auth.currentUser.updateProfile({
+			displayName: name
+		})
+	}
 
-      async register(name, email, password){
-          await this.auth.createUserWithEmailAndPassword(email,password)
-          return this.auth.currentUser.updateProfile({
-            
-            displayName: name
-              
-          })
-      }
-      addQuote(quote){
-        if(!this.auth.currentUser){
-            return alert("not registered")
-        }
-        return this.db.doc(`data/${this.auth.currentUser.uid}`).set({
-            quote
-        })
-    }
-    isInitialized(){
-        return new Promise(resolve=>{
-            this.auth.onAuthStateChanged(resolve)
-        })
-    }
-    getCurrentUsername(){
-        if(this.auth.currentUser!==null)
-          {
-            return this.auth.currentUser.displayName
-          } 
+	addData(quote,email,name) {
+		if(!auth.currentUser) {
+			return alert('Not authorized')
+		}
+
+		return db.collection('userdata').doc(`${auth.currentUser.uid}`).set({
+            quote:quote,
+            email:email,
+            name:name
+		})
     }
 
-    async getCurrentUserQuote(){
-        if(this.auth.currentUser!==null){
-            const quote=await this.db.doc(`data/${this.auth.currentUser.uid}`).get()
-        return quote.get('quote')
-        }
-        
+	isInitialized() {
+		return new Promise(resolve => {
+			auth.onAuthStateChanged(resolve)
+		})
+	}
+
+	getCurrentUsername() {
+		return auth.currentUser && auth.currentUser.displayName
+	}
+
+	async getCurrentUserQuote() {
+		const quote = await db.collection('userdata').doc(`${auth.currentUser.uid}`).get()
+		return quote.get('quote')
     }
-  }
-  export default new Firebase()
+}
+
+export default new Firebase()

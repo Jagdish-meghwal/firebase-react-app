@@ -8,6 +8,7 @@ import { MuiThemeProvider, createMuiTheme} from '@material-ui/core/styles'
 import { CircularProgress } from '@material-ui/core'
 import { BrowserRouter as Router, Switch, Route} from 'react-router-dom'
 import firebase from '../firebase' 
+import AllUser from '../AllUser'
 const theme = createMuiTheme();
 
  export default function App(){
@@ -19,13 +20,13 @@ const theme = createMuiTheme();
      })
     return setFirebaseInitialized!==false?(
         <MuiThemeProvider theme={theme}>
-            
             <Router>
                 <Switch>
                     <Route exact path="/" component={HomePage} />
                     <Route exact path="/login" component={Login}/>
                     <Route exact path="/register" component={Register}/>
                     <Route exact path="/dashboard" component={Dashboard}/>
+                    <Route exact path="/alluser" component={AllUser}/>
                 </Switch>
             </Router>
         </MuiThemeProvider>
