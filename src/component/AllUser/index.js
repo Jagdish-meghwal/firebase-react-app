@@ -68,31 +68,20 @@ class Alluser extends React.Component{
         return(
          
             <main className={classes.main}>
-                <Paper className={classes.paper}>
-                <Typography component="h1" variant="h5"> 
-                                List of All Users
-                </Typography>  
+                
+
                 {
                     this.state.users &&
                     this.state.users.map(user=>{
                         return (
-                            <Typography component="h1" variant="h5"> 
+                            <Typography component="h1" > 
                                 {user.name}
                              </Typography>   
                         )
                     })
                 }
-                <Button
-					type="submit"
-					fullWidth
-					variant="contained"
-					color="secondary"
-					component={Link}
-					to="/"
-					className={classes.submit}>
-					Home
-          		</Button>
-                </Paper>
+
+                
             </main>
           
         )

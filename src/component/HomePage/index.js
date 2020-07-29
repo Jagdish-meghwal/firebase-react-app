@@ -75,16 +75,7 @@ function HomePage(props) {
 					className={classes.submit}>
 					Dashboard
           		</Button>
-				<Button
-					type="submit"
-					fullWidth
-					variant="contained"
-					color="secondary"
-					component={Link}
-					to="/alluser"
-					className={classes.submit}>
-					All Registered User
-          		</Button>
+
 			</Paper>
 		</main>
 	)

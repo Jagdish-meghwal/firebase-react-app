@@ -4,6 +4,7 @@ import VerifiedUserOutlined from '@material-ui/icons/VerifiedUserOutlined'
 import withStyles from '@material-ui/core/styles/withStyles'
 import firebase from '../firebase'
 import { withRouter } from 'react-router-dom'
+import Alluser from '../AllUser/index'
 
 const styles = theme => ({
 	main: {
@@ -62,8 +63,15 @@ function Dashboard(props) {
 				<Typography component="h1" variant="h5">
 					Your quote: {quote ? `"${quote}"` : <CircularProgress size={20} />}
 				</Typography>
-             
-				<Button
+				<Typography component="h1" > 
+                                List of All Users :
+                </Typography>  
+				<br />
+				<br />
+			    <Typography component="h1" >
+					<Alluser/>
+				</Typography>
+			  <Button
 					type="submit"
 					fullWidth
 					variant="contained"
@@ -72,8 +80,7 @@ function Dashboard(props) {
 					className={classes.submit}>
 					Logout
           		</Button>
-			</Paper>
-         
+			</Paper>	
 		</main>
 	)
 
